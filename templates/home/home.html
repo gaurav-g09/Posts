@@ -1,0 +1,37 @@
+ {% extends 'base.html' %}
+
+ {% block title %}Home{% endblock title%}
+
+ {%block body%}
+ <div class="container">
+    <div class="jumbotron my-3">
+      <h1 class="display-4">Welcome to Posts</h1>
+      <p class="lead"></p>
+      <hr class="my-4">
+      <p></p>
+      <a class="btn btn-primary btn-lg" href="/posts" role="button">Go to Posts</a>
+      </div>    
+    </div>
+
+
+  {% if request.user.is_superuser%}
+    {% for user1 in allusers %} 
+    <div class="container">
+      <div class="jumbotron my-3">
+        {% comment %} <h1 class="display-4">User Profile</h1> {% endcomment %}
+        <p class="lead">Email : {{user1.get_username}}</p>
+        {% comment %} <hr class="my-4"> {% endcomment %}
+        <p>Name : {{user1.get_full_name}}</p>
+        {% comment %} <hr class="my-4"> {% endcomment %}
+        <p>Phone : {{user1.email}}</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'blogHome1' user_id=user1.id %}" role="button">Check their Posts</a>
+        </div>      
+        {% comment %} <a method="POST" style=" margin:auto; width:60%;" href="{% url 'delete_post' %}" class="top-menu">
+           Delete my post please
+      </a> {% endcomment %}
+      </div>
+
+    {% endfor %}
+  {% endif %}
+              
+ {%endblock body%}
